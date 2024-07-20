@@ -682,6 +682,17 @@ declare namespace postgres {
 
     options: ParsedOptions<TTypes>;
     parameters: ConnectionParameters;
+    connections: {
+      max: number,
+      get open(): number,
+      get connecting(): number,
+      get ended(): number,
+      get closed(): number,
+      get reserved(): number,
+      get idle(): number,
+      get busy(): number,
+      get full(): number
+    } 
     types: this['typed'];
     typed: (<T>(value: T, oid: number) => Parameter<T>) & {
       [name in keyof TTypes]: (value: TTypes[name]) => postgres.Parameter<TTypes[name]>
