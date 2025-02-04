@@ -394,7 +394,11 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
       args: { value: query.args, enumerable: options.debug },
       types: { value: query.statement && query.statement.types, enumerable: options.debug }
     })
-    query.reject(err)
+    if (typeof query.reject === 'function') {
+      query.reject(err)
+    } else {
+      throw err
+    }
   }
 
   function end() {
